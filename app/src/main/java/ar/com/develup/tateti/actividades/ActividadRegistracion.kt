@@ -123,10 +123,7 @@ class ActividadRegistracion : AppCompatActivity() {
 //        }
 //    }
 
-    private fun enviarEmailDeVerificacion() {
-        // TODO-05-AUTHENTICATION
-        // Enviar mail de verificacion al usuario currentUser
-    }
+
 
 
     //ValidarPassword

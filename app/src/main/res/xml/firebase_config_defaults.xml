@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <defaultsMap>
     <entry>
-        <key>olvideMiContrasena</key>
+        <key>show_password_botton</key>
         <value>false</value>
+    </entry>
+    <entry>
+        <key>password_botton_text</key>
+        <value>recover password desactivated</value>
     </entry>
 </defaultsMap>
