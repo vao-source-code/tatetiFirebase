@@ -252,18 +252,7 @@ mAlertDialog.show()
 
             resetPassword(email)
             // TODO-05-AUTHENTICATION
-            // Si completo el mail debo enviar un mail de reset
-            // Para ello, utilizamos sendPasswordResetEmail con el email como parametro
-            // Agregar el siguiente fragmento de codigo como CompleteListener, que notifica al usuario
-            // el resultado de la operacion
 
-            //  .addOnCompleteListener { task ->
-            //      if (task.isSuccessful) {
-            //          Snackbar.make(rootView, "Email enviado", Snackbar.LENGTH_SHORT).show()
-            //      } else {
-            //          Snackbar.make(rootView, "Error " + task.exception, Snackbar.LENGTH_SHORT).show()
-            //      }
-            //  }
         }
     }
 
@@ -329,31 +318,6 @@ mAuthProvider.mAuth.setLanguageCode("es")
 
     }
 
-        // TODO-05-AUTHENTICATION
-        // IMPORTANTE: Eliminar  la siguiente linea cuando se implemente authentication
-
-
-        // TODO-05-AUTHENTICATION
-        // hacer signInWithEmailAndPassword con los valores ingresados de email y password
-        // Agregar en addOnCompleteListener el campo authenticationListener definido mas abajo
-
-
-    //    private val authenticationListener: OnCompleteListener<AuthResult?> = OnCompleteListener<AuthResult?> { task ->
-    //        if (task.isSuccessful) {
-    //            if (usuarioVerificoEmail()) {
-    //                verPartidas()
-    //            } else {
-    //                desloguearse()
-    //                Snackbar.make(rootView!!, "Verifica tu email para continuar", Snackbar.LENGTH_SHORT).show()
-    //            }
-    //        } else {
-    //            if (task.exception is FirebaseAuthInvalidUserException) {
-    //                Snackbar.make(rootView!!, "El usuario no existe", Snackbar.LENGTH_SHORT).show()
-    //            } else if (task.exception is FirebaseAuthInvalidCredentialsException) {
-    //                Snackbar.make(rootView!!, "Credenciales inválidas", Snackbar.LENGTH_SHORT).show()
-    //            }
-    //        }
-    //    }
 
     private fun usuarioVerificoEmail(email: String): Boolean {
         // TODO-05-AUTHENTICATION
