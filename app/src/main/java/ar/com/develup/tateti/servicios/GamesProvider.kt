@@ -8,15 +8,15 @@ import com.google.firebase.firestore.FirebaseFirestore
 
 class GamesProvider {
 
-    var mCollection: CollectionReference =
-        FirebaseFirestore.getInstance().collection(Constantes.TABLA_PARTIDAS)
+    var mCollection: CollectionReference = FirebaseFirestore.getInstance().collection(Constantes.TABLA_PARTIDAS)
 
 
-    public fun getUser(id: String): Task<DocumentSnapshot> {
+    fun getUser(id: String): Task<DocumentSnapshot> {
         return mCollection.document(id).get()
     }
 
-    public fun create(partida : Partida): Task<Void> {
+
+     fun create(partida : Partida): Task<Void> {
         return mCollection.document(partida.id!!).set(partida)
     }
 

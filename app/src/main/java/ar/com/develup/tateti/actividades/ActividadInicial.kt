@@ -117,7 +117,6 @@ class ActividadInicial : AppCompatActivity() {
     }
 
     private fun firebaseAuthWithGoogle(account : GoogleSignInAccount) {
-        mAlertDialog.show()
         mAuthProvider.googleLogin(account).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 val id = mAuthProvider.getUid()
@@ -139,7 +138,7 @@ class ActividadInicial : AppCompatActivity() {
 
     private fun checkUserExist(id: String) {
         mFirebaseFirestore.collection("Users").document(id).get().addOnSuccessListener { it ->
-
+mAlertDialog.show()
             if(it.exists()){
                 mAlertDialog.dismiss()
                 verPartidas()
