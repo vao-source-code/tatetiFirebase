@@ -1,6 +1,7 @@
 package ar.com.develup.tateti.actividades
 
 import android.app.AlertDialog
+import android.app.ProgressDialog
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -9,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ar.com.develup.tateti.R
@@ -46,8 +48,6 @@ class ActividadInicial : AppCompatActivity() {
     val  GOOGLE_SIGN_IN : Int  = 100
 
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.actividad_inicial)
@@ -56,6 +56,8 @@ class ActividadInicial : AppCompatActivity() {
             .setContext(this)
             .setMessage("Cargando ...")
             .setCancelable(false).build()
+
+
         mBtnLoginGoogle = findViewById(R.id.btnLoginGoogle)
         mAuthProvider = AuthProvider()
         mFirebaseFirestore = FirebaseFirestore.getInstance()
@@ -247,6 +249,8 @@ mAlertDialog.show()
         if (email.isEmpty()) {
             Snackbar.make(rootView!!, "Completa el email", Snackbar.LENGTH_SHORT).show()
         } else {
+
+            resetPassword(email)
             // TODO-05-AUTHENTICATION
             // Si completo el mail debo enviar un mail de reset
             // Para ello, utilizamos sendPasswordResetEmail con el email como parametro
@@ -260,6 +264,22 @@ mAlertDialog.show()
             //          Snackbar.make(rootView, "Error " + task.exception, Snackbar.LENGTH_SHORT).show()
             //      }
             //  }
+        }
+    }
+
+    private fun resetPassword(email: String) {
+mAuthProvider.mAuth.setLanguageCode("es")
+        mAuthProvider.mAuth.sendPasswordResetEmail(email).addOnCompleteListener {
+            mAlertDialog.show()
+            if(it.isSuccessful){
+
+                Snackbar.make(rootView!!, "Se pudo enviar el correo", Snackbar.LENGTH_SHORT).show()
+
+
+            }else{
+                Snackbar.make(rootView!!, "No se pudo enviar el correo", Snackbar.LENGTH_SHORT).show()
+            }
+            mAlertDialog.dismiss()
         }
     }
 
@@ -292,6 +312,7 @@ mAlertDialog.show()
                             FirebaseCrashlytics.getInstance().setUserId(email)
                             FirebaseCrashlytics.getInstance().setCustomKey("TIPO_ERROR","CREDENCIALES")
                             FirebaseCrashlytics.getInstance().log("error credencial")
+                            Toast.makeText(this, "Error", Toast.LENGTH_LONG).show()
 
 
                         }

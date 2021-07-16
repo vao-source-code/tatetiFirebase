@@ -79,10 +79,16 @@ class ActividadRegistracion : AppCompatActivity() {
             }else{
                 mAlertDialog.dismiss()
 
+
                 Toast.makeText(this, "No se pudo registar el usuario", Toast.LENGTH_LONG).show()
 
             }
+
         }
+
+
+        Toast.makeText(this, "No se pudo registar el usuario", Toast.LENGTH_LONG).show()
+
     }
 
     private fun createFirebaseBBDD(map: MutableMap<String, String>, id:String) {
