@@ -11,4 +11,16 @@
     <color name="grisFirebase">#ECEFF1</color>
     <color name="grisOscuro">#919191</color>
     <color name="ColorNaranjaFirebase">#F57C00</color>
+
+
+    <color name="blueSky">#87CEEB</color>
+    <color name="greenLime">#32CD32</color>
+    <color name="roseLight">#FFA07A</color>
+    <color name="orangeFluorescent">#FFA500</color>
+    <color name="yellowCanary">#FFFF00</color>
+    <color name="lilaVibrant">#EE82EE</color>
+    <color name="turquoiseDeep">#00CED1</color>
+    <color name="magentaStrong">#FF00FF</color>
+    <color name="carmine">#DC143C</color>
+
 </resources>
