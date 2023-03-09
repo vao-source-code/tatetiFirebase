@@ -42,10 +42,8 @@ class ActividadInicial : AppCompatActivity() {
     lateinit var mBtnLoginGoogle: SignInButton
     lateinit var googleSignInClient: GoogleSignInClient
     lateinit var mFirebaseFirestore: FirebaseFirestore
-    lateinit var mRemoteConfig : FirebaseRemoteConfig
-    val  GOOGLE_SIGN_IN : Int  = 100
-
-
+    lateinit var mRemoteConfig: FirebaseRemoteConfig
+    val GOOGLE_SIGN_IN: Int = 100
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -70,7 +68,7 @@ class ActividadInicial : AppCompatActivity() {
         iniciarSesionGoogle()
 
 
-        if (!usuarioEstaLogueado()) {
+        if (usuarioEstaLogueado()) {
             verPartidas()
             finish()
         }
@@ -116,7 +114,7 @@ class ActividadInicial : AppCompatActivity() {
 
     }
 
-    private fun firebaseAuthWithGoogle(account : GoogleSignInAccount) {
+    private fun firebaseAuthWithGoogle(account: GoogleSignInAccount) {
         mAuthProvider.googleLogin(account).addOnCompleteListener(this) { task ->
             if (task.isSuccessful) {
                 val id = mAuthProvider.getUid()
@@ -138,44 +136,47 @@ class ActividadInicial : AppCompatActivity() {
 
     private fun checkUserExist(id: String) {
         mFirebaseFirestore.collection("Users").document(id).get().addOnSuccessListener { it ->
-mAlertDialog.show()
-            if(it.exists()){
+            mAlertDialog.show()
+            if (it.exists()) {
                 mAlertDialog.dismiss()
                 verPartidas()
-            }else{
+            } else {
                 usuarioNuevoGoogle(id)
 
             }
         }
     }
 
-    private fun usuarioNuevoGoogle(id : String) {
+    private fun usuarioNuevoGoogle(id: String) {
         val email = mAuthProvider.getEmail()
 
-        val map : MutableMap<String,String> = mutableMapOf()
-        if(email !=null){
+        val map: MutableMap<String, String> = mutableMapOf()
+        if (email != null) {
             map["email"] = email
 
         }
         mFirebaseFirestore.collection("Users").document(id).set(map).addOnCompleteListener {
-            if(it.isSuccessful){
+            if (it.isSuccessful) {
                 mAlertDialog.dismiss()
 
                 intent = Intent(this, ActividadPartidas::class.java)
                 startActivity(intent)
-            }else{
-                Toast.makeText(this, "No se pudo almacenar la informacion del usuario", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(
+                    this,
+                    "No se pudo almacenar la informacion del usuario",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
     }
 
 
-
-
     private fun usuarioEstaLogueado(): Boolean {
         // TODO-05-AUTHENTICATION
-        if ( mAuthProvider.getEmail() == null)
-        return false
+        if (mAuthProvider.getEmail() == null || mAuthProvider.getEmail().equals("")) {
+            return false
+        }
         return true
     }
 
@@ -195,7 +196,7 @@ mAlertDialog.show()
             minimumFetchIntervalInSeconds = 6
         }
         mRemoteConfig.setConfigSettingsAsync(configSettings)
-         configurarDefaultsRemoteConfig()
+        configurarDefaultsRemoteConfig()
         configurarOlvideMiContrasena()
     }
 
@@ -226,15 +227,18 @@ mAlertDialog.show()
 
                     }
                     Log.d(TAG, "Config params updated: $updated")
-                    Toast.makeText(this, "Fetch and activate succeeded",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this, "Fetch and activate succeeded",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 } else {
-                    Toast.makeText(this, "Fetch failed",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        this, "Fetch failed",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
 
             }
-
 
 
     }
@@ -274,23 +278,29 @@ mAlertDialog.show()
         if (email.isNotEmpty() && password.isNotEmpty()) {
 
             if (isEmailValid(email)) {
-                mAuthProvider.login(email,password).addOnCompleteListener {
+                mAuthProvider.login(email, password).addOnCompleteListener {
                     mAlertDialog.dismiss()
                     if (it.isSuccessful) {
                         Toast.makeText(this, "pase por aca ", Toast.LENGTH_LONG).show()
                         verPartidas()
                     } else {
 
-                        if(it.exception is FirebaseAuthInvalidUserException ){
-                            Toast.makeText(this, "El email o contraseña no son correctas ", Toast.LENGTH_LONG).show()
+                        if (it.exception is FirebaseAuthInvalidUserException) {
+                            Toast.makeText(
+                                this,
+                                "El email o contraseña no son correctas ",
+                                Toast.LENGTH_LONG
+                            ).show()
                             FirebaseCrashlytics.getInstance().setUserId(email)
-                            FirebaseCrashlytics.getInstance().setCustomKey("TIPO_ERROR","IDENTIFICACION")
+                            FirebaseCrashlytics.getInstance()
+                                .setCustomKey("TIPO_ERROR", "IDENTIFICACION")
                             FirebaseCrashlytics.getInstance().log("Identificacion erronea")
                         }
-                        if(it.exception is FirebaseAuthInvalidCredentialsException){
+                        if (it.exception is FirebaseAuthInvalidCredentialsException) {
                             Toast.makeText(this, "Error Critico ", Toast.LENGTH_LONG).show()
                             FirebaseCrashlytics.getInstance().setUserId(email)
-                            FirebaseCrashlytics.getInstance().setCustomKey("TIPO_ERROR","CREDENCIALES")
+                            FirebaseCrashlytics.getInstance()
+                                .setCustomKey("TIPO_ERROR", "CREDENCIALES")
                             FirebaseCrashlytics.getInstance().log("error credencial")
 
 
@@ -308,13 +318,13 @@ mAlertDialog.show()
 
     }
 
-        // TODO-05-AUTHENTICATION
-        // IMPORTANTE: Eliminar  la siguiente linea cuando se implemente authentication
+    // TODO-05-AUTHENTICATION
+    // IMPORTANTE: Eliminar  la siguiente linea cuando se implemente authentication
 
 
-        // TODO-05-AUTHENTICATION
-        // hacer signInWithEmailAndPassword con los valores ingresados de email y password
-        // Agregar en addOnCompleteListener el campo authenticationListener definido mas abajo
+    // TODO-05-AUTHENTICATION
+    // hacer signInWithEmailAndPassword con los valores ingresados de email y password
+    // Agregar en addOnCompleteListener el campo authenticationListener definido mas abajo
 
 
     //    private val authenticationListener: OnCompleteListener<AuthResult?> = OnCompleteListener<AuthResult?> { task ->
