@@ -7,11 +7,12 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import ar.com.develup.tateti.R
+import ar.com.develup.tateti.databinding.ActividadInicialBinding
+import ar.com.develup.tateti.modelo.SPManager
+import ar.com.develup.tateti.modelo.ValidForm
 import ar.com.develup.tateti.servicios.AuthProvider
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
@@ -20,16 +21,15 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
 import com.google.firebase.crashlytics.FirebaseCrashlytics
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
-import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
-import kotlinx.android.synthetic.main.actividad_inicial.*
 import dmax.dialog.SpotsDialog
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -45,33 +45,37 @@ class ActividadInicial : AppCompatActivity() {
     lateinit var mRemoteConfig: FirebaseRemoteConfig
     val GOOGLE_SIGN_IN: Int = 100
 
+    private lateinit var binding: ActividadInicialBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.actividad_inicial)
+        binding = ActividadInicialBinding.inflate(layoutInflater)
+        val view = binding.root
+        setContentView(view)
 
         mAlertDialog = SpotsDialog.Builder()
             .setContext(this)
             .setMessage("Cargando ...")
             .setCancelable(false).build()
-        mBtnLoginGoogle = findViewById(R.id.btnLoginGoogle)
+        mBtnLoginGoogle = binding.btnLoginGoogle
         mAuthProvider = AuthProvider()
         mFirebaseFirestore = FirebaseFirestore.getInstance()
+        SPManager(applicationContext).add(SPManager.INIT, false)
 
 
         mRemoteConfig = FirebaseRemoteConfig.getInstance()
 
 
-        iniciarSesion.setOnClickListener { iniciarSesion() }
-        registrate.setOnClickListener { registrate() }
-        olvideMiContrasena.setOnClickListener { olvideMiContrasena() }
+        binding.iniciarSesion.setOnClickListener { iniciarSesion() }
+        binding.registrate.setOnClickListener { registrate() }
+        binding.olvideMiContrasena.setOnClickListener { olvideMiContrasena() }
         iniciarSesionGoogle()
 
 
-        if (usuarioEstaLogueado()) {
-            verPartidas()
-            finish()
-        }
+        //if (usuarioEstaLogueado()) {
+          //  verPartidas()
+            //finish()
+        //}
         actualizarRemoteConfig()
     }
 
@@ -142,7 +146,6 @@ class ActividadInicial : AppCompatActivity() {
                 verPartidas()
             } else {
                 usuarioNuevoGoogle(id)
-
             }
         }
     }
@@ -220,15 +223,15 @@ class ActividadInicial : AppCompatActivity() {
                     val showPasswordBotton = mRemoteConfig.getBoolean("show_password_botton")
 
                     if (showPasswordBotton) {
-                        olvideMiContrasena.visibility = View.VISIBLE
+                        binding.olvideMiContrasena.visibility = View.VISIBLE
 
                     } else {
-                        olvideMiContrasena.visibility = View.GONE
+                        binding.olvideMiContrasena.visibility = View.GONE
 
                     }
                     Log.d(TAG, "Config params updated: $updated")
                     Toast.makeText(
-                        this, "Fetch and activate succeeded",
+                        this, "La opción olvidar contraseña se actualizó",
                         Toast.LENGTH_SHORT
                     ).show()
                 } else {
@@ -245,11 +248,11 @@ class ActividadInicial : AppCompatActivity() {
 
     private fun olvideMiContrasena() {
         // Obtengo el mail
-        val email = email.text.toString()
+        val email = binding.email.text.toString()
 
         // Si no completo el email, muestro mensaje de error
         if (email.isEmpty()) {
-            Snackbar.make(rootView!!, "Completa el email", Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.rootView!!, "Completa el email", Snackbar.LENGTH_SHORT).show()
         } else {
             // TODO-05-AUTHENTICATION
             // Si completo el mail debo enviar un mail de reset
@@ -257,57 +260,60 @@ class ActividadInicial : AppCompatActivity() {
             // Agregar el siguiente fragmento de codigo como CompleteListener, que notifica al usuario
             // el resultado de la operacion
 
-            //  .addOnCompleteListener { task ->
-            //      if (task.isSuccessful) {
-            //          Snackbar.make(rootView, "Email enviado", Snackbar.LENGTH_SHORT).show()
-            //      } else {
-            //          Snackbar.make(rootView, "Error " + task.exception, Snackbar.LENGTH_SHORT).show()
-            //      }
-            //  }
+            FirebaseAuth.getInstance().sendPasswordResetEmail(email)
+                .addOnCompleteListener { task ->
+                 if (task.isSuccessful) {
+                      Snackbar.make(binding.rootView, "Email enviado", Snackbar.LENGTH_SHORT).show()
+                  } else {
+                    Log.e("Error enviar recupero", task.exception.toString())
+                     Snackbar.make(binding.rootView, "Error al enviar el email, verifique si el correo esta registrado", Snackbar.LENGTH_SHORT).show()
+                  }
+              }
         }
     }
 
     private fun iniciarSesion() {
 
-        val email = email.text.toString();
-        val password = password.text.toString();
+        val email = binding.email.text.toString();
+        val password = binding.password.text.toString();
         Log.d("Campo", "email:$email")
         Log.d("Campo", "password:$password")
 
         mAlertDialog.show()
-        if (email.isNotEmpty() && password.isNotEmpty()) {
+        //TODO se debe validar el password
+        if (ValidForm.validEmail(email) && password.isNotEmpty()) {
 
-            if (isEmailValid(email)) {
-                mAuthProvider.login(email, password).addOnCompleteListener {
-                    mAlertDialog.dismiss()
-                    if (it.isSuccessful) {
-                        Toast.makeText(this, "pase por aca ", Toast.LENGTH_LONG).show()
-                        verPartidas()
-                    } else {
+            mAuthProvider.login(email, password).addOnCompleteListener {
+                mAlertDialog.dismiss()
+                if (it.isSuccessful) {
+                    Snackbar.make(
+                        binding.rootView!!,"Bienvenido!", Snackbar.LENGTH_LONG).show()
+                    verPartidas()
+                } else {
 
-                        if (it.exception is FirebaseAuthInvalidUserException) {
-                            Toast.makeText(
-                                this,
-                                "El email o contraseña no son correctas ",
-                                Toast.LENGTH_LONG
-                            ).show()
-                            FirebaseCrashlytics.getInstance().setUserId(email)
-                            FirebaseCrashlytics.getInstance()
-                                .setCustomKey("TIPO_ERROR", "IDENTIFICACION")
-                            FirebaseCrashlytics.getInstance().log("Identificacion erronea")
-                        }
-                        if (it.exception is FirebaseAuthInvalidCredentialsException) {
-                            Toast.makeText(this, "Error Critico ", Toast.LENGTH_LONG).show()
-                            FirebaseCrashlytics.getInstance().setUserId(email)
-                            FirebaseCrashlytics.getInstance()
-                                .setCustomKey("TIPO_ERROR", "CREDENCIALES")
-                            FirebaseCrashlytics.getInstance().log("error credencial")
-
-
-                        }
+                    if (it.exception is FirebaseAuthInvalidUserException) {
+                        Snackbar.make(
+                            binding.rootView!!,
+                            "El email o contraseña no son correctas ",
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                        FirebaseCrashlytics.getInstance().setUserId(email)
+                        FirebaseCrashlytics.getInstance()
+                            .setCustomKey("TIPO_ERROR", "IDENTIFICACION")
+                        FirebaseCrashlytics.getInstance().log("Identificacion erronea")
                     }
+                    if (it.exception is FirebaseAuthInvalidCredentialsException) {
+                        Toast.makeText(this, "Error Critico ", Toast.LENGTH_LONG).show()
+                        FirebaseCrashlytics.getInstance().setUserId(email)
+                        FirebaseCrashlytics.getInstance()
+                            .setCustomKey("TIPO_ERROR", "CREDENCIALES")
+                        FirebaseCrashlytics.getInstance().log("error credencial")
 
+
+                    }
                 }
+
+
             }
         } else {
             Toast.makeText(this, "Error al procesar los campos, estan vacios", Toast.LENGTH_LONG)
@@ -355,6 +361,13 @@ class ActividadInicial : AppCompatActivity() {
     private fun desloguearse() {
         // TODO-05-AUTHENTICATION
         // Hacer signOut de Firebase
+
+        mAuthProvider.mAuth.signOut()
+        SPManager(applicationContext).add(SPManager.INIT, false)
+
+        // FirebaseAuth.getInstance().signOut()
+
+
     }
 
     private fun isEmailValid(email: String): Boolean {

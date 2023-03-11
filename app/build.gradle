@@ -2,7 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'kotlin-kapt'
-    id 'kotlin-android-extensions'
+   id 'kotlin-android-extensions'
     // TODO-01-INTEGRAR
     id 'com.google.gms.google-services'
     // TODO-02-CRASHLYTICS
@@ -37,6 +37,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    viewBinding {
+        enabled = true
+    }
+
 }
 
 dependencies {
@@ -70,6 +74,7 @@ dependencies {
     implementation 'com.github.d-max:spots-dialog:1.1@aar'
     implementation 'com.google.firebase:firebase-inappmessaging'
     implementation 'com.google.firebase:firebase-messaging-ktx'
+
 
 }
 

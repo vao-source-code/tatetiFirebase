@@ -23,15 +23,20 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+        <activity
+            android:name=".actividades.SplashScreen"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity> <!-- Base Activities -->
+
     <activity android:name=".actividades.ActividadInicial"
         android:screenOrientation="portrait"
-        android:exported="true">
-
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
+        android:exported="true"/>
 
     <activity android:name=".actividades.ActividadRegistracion"
         android:screenOrientation="portrait"/>

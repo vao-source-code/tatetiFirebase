@@ -26,7 +26,7 @@ class ActividadPartidas : AppCompatActivity() {
     private lateinit var adaptadorPartidas: AdaptadorPartidas
      private lateinit var  myRef:DatabaseReference
 
-    private lateinit var  database: FirebaseDatabase
+ //    private lateinit var  database: FirebaseDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.actividad_partidas)
@@ -35,7 +35,7 @@ class ActividadPartidas : AppCompatActivity() {
         partidas.adapter = adaptadorPartidas
 
 
-         database = FirebaseDatabase.getInstance()
+       //  database = FirebaseDatabase.getInstance()
 
         nuevaPartida.setOnClickListener { nuevaPartida() }
     }
@@ -43,14 +43,21 @@ class ActividadPartidas : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         // TODO-06-DATABASE
-         myRef = database.getReference(Constantes.TABLA_PARTIDAS)
-        myRef.addChildEventListener(listenerTablaPartidas)
+
+        // Obtener una referencia a la base de datos, suscribirse a los cambios en Constantes.TABLA_PARTIDAS
+        // y agregar como ChildEventListener el listenerTablaPartidas definido mas abajo
+        FirebaseDatabase.getInstance()
+            .reference
+            .child(Constantes.TABLA_PARTIDAS)
+            .addChildEventListener(listenerTablaPartidas)
+
 
         // Obtener una referencia a la base de datos, suscribirse a los cambios en Constantes.TABLA_PARTIDAS
         // y agregar como ChildEventListener el listenerTablaPartidas definido mas abajo
     }
 
     fun nuevaPartida() {
+
         val intent = Intent(this, ActividadPartida::class.java)
         startActivity(intent)
     }
@@ -61,6 +68,7 @@ class ActividadPartidas : AppCompatActivity() {
             Log.i(TAG, "onChildAdded: $dataSnapshot")
             val partida = dataSnapshot.getValue(Partida::class.java)!! // Obtener el valor del dataSnapshot
             partida.id = dataSnapshot.key // Asignar el valor del campo "key" del dataSnapshot
+
             adaptadorPartidas.agregarPartida(partida)
         }
 
@@ -86,6 +94,7 @@ class ActividadPartidas : AppCompatActivity() {
             Log.i(TAG, "onCancelled: ")
         }
     }
+
 
 
 }
