@@ -9,8 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import ar.com.develup.tateti.R
 import ar.com.develup.tateti.actividades.ActividadPartida
 import ar.com.develup.tateti.actividades.ActividadPartidas
+import ar.com.develup.tateti.databinding.ItemPartidaBinding
 import ar.com.develup.tateti.modelo.Constantes
 import ar.com.develup.tateti.modelo.Partida
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.*
 
 class AdaptadorPartidas(
@@ -27,7 +30,14 @@ class AdaptadorPartidas(
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val partida = partidas[position]
         holder.partida = partida
-        holder.idPartida.text = partida.id
+        holder.idPartida.text = "id: " + partida.id
+        FirebaseFirestore.getInstance().collection("Users").get().addOnSuccessListener { it ->
+            for (document in it) {
+                if (document.id == partida.retador) {
+                    holder.retador.text = "Retador: " + document.data["email"].toString()
+                }
+            }
+        }
         holder.estado.text = partida.calcularEstado()
     }
 
@@ -60,9 +70,11 @@ class AdaptadorPartidas(
 
     inner class Holder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+        private lateinit var   binding  : ItemPartidaBinding
         var partida: Partida? = null
         var idPartida: TextView
         var estado: TextView
+        var retador: TextView
 
         private val clickPartidaListener = View.OnClickListener {
             val intent = Intent(actividad, ActividadPartida::class.java)
@@ -71,9 +83,14 @@ class AdaptadorPartidas(
         }
 
         init {
-            itemView.setOnClickListener(clickPartidaListener)
-            idPartida = itemView.findViewById(R.id.idPartida)
-            estado = itemView.findViewById(R.id.estado)
+            //TODO se debe agregar el id del correo en el item_partida
+            binding = ItemPartidaBinding.bind(itemView)
+
+            binding.itemPartida.setOnClickListener(clickPartidaListener)
+            idPartida = binding.idPartida
+            estado =  binding.estado
+            retador = binding.retador
+
         }
     }
 

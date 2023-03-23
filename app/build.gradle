@@ -75,6 +75,11 @@ dependencies {
     implementation 'com.google.firebase:firebase-inappmessaging'
     implementation 'com.google.firebase:firebase-messaging-ktx'
 
+    //responsive
+    implementation 'com.intuit.ssp:ssp-android:1.1.0'
+    implementation 'com.intuit.sdp:sdp-android:1.1.0'
+
+
 
 }
 

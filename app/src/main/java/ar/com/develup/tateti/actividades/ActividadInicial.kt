@@ -130,7 +130,11 @@ class ActividadInicial : AppCompatActivity() {
                 Log.d(ContentValues.TAG, "signInWithCredential:success")
 
             } else {
-
+                Snackbar.make(
+                    binding.root,
+                    "No se pudo iniciar sesion con Google",
+                    Snackbar.LENGTH_SHORT
+                ).show()
                 // If sign in fails, display a message to the user.
                 Log.w(ContentValues.TAG, "signInWithCredential:failure", task.exception)
             }
