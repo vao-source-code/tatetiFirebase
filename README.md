@@ -1,1 +1,9 @@
-Proyecto Demo utilizado en el Taller de Firebase de la Tecnicatura en Programación (Orientación Mobile) de UNLAM.
+Tateti es una aplicación móvil emocionante y adictiva que permite a los jugadores de todas las edades disfrutar del clásico juego de tres en raya en cualquier lugar y en cualquier momento. Con su interfaz fácil de usar y sus gráficos coloridos y atractivos, Tateti ofrece una experiencia de juego rápida y divertida que mantiene a los jugadores enganchados durante horas.
+
+Los jugadores pueden jugar contra la computadora en tres niveles de dificultad diferentes, o desafiar a sus amigos en línea en partidas emocionantes de uno contra uno. La aplicación también ofrece la opción de jugar en modo local, permitiendo a los jugadores jugar contra amigos cercanos en la misma red WiFi.
+
+Además de la jugabilidad clásica, Tateti ofrece una variedad de modos de juego emocionantes y únicos. Por ejemplo, el modo cronometrado desafía a los jugadores a completar el juego en un tiempo determinado, mientras que el modo de eliminación elimina las piezas jugadas anteriormente, aumentando el nivel de dificultad y la estrategia necesaria para ganar.
+
+Tateti también tiene una opción de personalización que permite a los jugadores elegir sus propios temas de tablero y fichas, lo que les permite personalizar su experiencia de juego y hacerla única. Además, la aplicación ofrece un registro de estadísticas de jugador, lo que permite a los jugadores ver su progreso y mejorar sus habilidades.
+
+En resumen, Tateti es una aplicación móvil emocionante y divertida que ofrece una variedad de modos de juego y opciones de personalización, lo que la convierte en una experiencia de juego única y atractiva para jugadores de todas las edades y habilidades.
