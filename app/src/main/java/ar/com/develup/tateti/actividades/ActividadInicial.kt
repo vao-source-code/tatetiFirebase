@@ -30,6 +30,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.google.firebase.remoteconfig.ktx.remoteConfigSettings
+import com.shobhitpuri.custombuttons.GoogleSignInButton
 import dmax.dialog.SpotsDialog
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -39,7 +40,7 @@ class ActividadInicial : AppCompatActivity() {
 
     lateinit var mAlertDialog: AlertDialog
     lateinit var mAuthProvider: AuthProvider
-    lateinit var mBtnLoginGoogle: SignInButton
+    lateinit var mBtnLoginGoogle: GoogleSignInButton
     lateinit var googleSignInClient: GoogleSignInClient
     lateinit var mFirebaseFirestore: FirebaseFirestore
     lateinit var mRemoteConfig: FirebaseRemoteConfig
@@ -74,10 +75,10 @@ class ActividadInicial : AppCompatActivity() {
         iniciarSesionGoogle()
 
 
-        //if (usuarioEstaLogueado()) {
-          //  verPartidas()
-            //finish()
-        //}
+      //  if (usuarioEstaLogueado()) {
+        //    verPartidas()
+         //   finish()
+       // }
         actualizarRemoteConfig()
     }
 

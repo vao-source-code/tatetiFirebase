@@ -75,61 +75,71 @@
 
 
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginHorizontal="@dimen/_30sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:background="@drawable/background_item"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeColor="@drawable/et_box_color"
+
                 android:orientation="horizontal">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/email"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:background="@android:color/transparent"
                     android:hint="E-mail"
                     android:inputType="textEmailAddress" />
 
 
-            </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <LinearLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginHorizontal="@dimen/_30sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
+                android:background="@drawable/background_item"
+                app:boxStrokeWidth="0dp"
+                app:boxStrokeColor="@drawable/et_box_color"
+
                 android:orientation="horizontal">
 
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/password"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp"
+                    android:layout_height="match_parent"
+                    android:layout_margin="5dp"
+                    android:background="@android:color/transparent"
                     android:hint="Contraseña"
                     android:inputType="textPassword" />
 
-            </LinearLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginHorizontal="@dimen/_30sdp"
+                android:layout_marginVertical="@dimen/_10sdp"
                 android:orientation="vertical">
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/iniciarSesion"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="16dp"
+                    android:layout_marginVertical="@dimen/_10sdp"
                     android:text="Iniciar sesión" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/olvideMiContrasena"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="16dp"
+                    android:layout_marginVertical="@dimen/_10sdp"
                     android:text="Olvidé mi contraseña" />
 
 
@@ -141,18 +151,18 @@
 
     </androidx.cardview.widget.CardView>
 
-    <com.google.android.gms.common.SignInButton
+
+    <com.shobhitpuri.custombuttons.GoogleSignInButton
+        android:id="@+id/btnLoginGoogle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/btnLoginGoogle"
+        android:layout_gravity="bottom"
+        android:layout_marginLeft="20dp"
+        android:text="Iniciar sesión con Google"
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_gravity="bottom"
         android:layout_marginBottom="100dp"
-        android:elevation="5dp"
-        />
-
+        android:elevation="5dp" />
 
     <LinearLayout
         android:layout_width="match_parent"

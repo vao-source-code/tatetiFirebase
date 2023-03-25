@@ -7,14 +7,15 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import ar.com.develup.tateti.R
 import ar.com.develup.tateti.adaptadores.AdaptadorPartidas
+import ar.com.develup.tateti.databinding.ActividadPartidasBinding
 import ar.com.develup.tateti.modelo.Constantes
 import ar.com.develup.tateti.modelo.Partida
+import ar.com.develup.tateti.modelo.SPManager
 import com.google.firebase.*
 import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.*
-import kotlinx.android.synthetic.main.actividad_partida.*
-import kotlinx.android.synthetic.main.actividad_partidas.*
+
 
 
 class ActividadPartidas : AppCompatActivity() {
@@ -23,21 +24,25 @@ class ActividadPartidas : AppCompatActivity() {
         private const val TAG = "ActividadPartidas"
     }
 
+    private lateinit var binding: ActividadPartidasBinding
     private lateinit var adaptadorPartidas: AdaptadorPartidas
      private lateinit var  myRef:DatabaseReference
 
  //    private lateinit var  database: FirebaseDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.actividad_partidas)
-        adaptadorPartidas = AdaptadorPartidas(this)
-        partidas.layoutManager = LinearLayoutManager(this)
-        partidas.adapter = adaptadorPartidas
+        binding = ActividadPartidasBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        SPManager(applicationContext).add(SPManager.INIT, true)
+
+     adaptadorPartidas = AdaptadorPartidas(this)
+        binding.partidas.layoutManager = LinearLayoutManager(this)
+        binding.partidas.adapter = adaptadorPartidas
 
 
        //  database = FirebaseDatabase.getInstance()
 
-        nuevaPartida.setOnClickListener { nuevaPartida() }
+        binding.nuevaPartida.setOnClickListener { nuevaPartida() }
     }
 
     override fun onResume() {
