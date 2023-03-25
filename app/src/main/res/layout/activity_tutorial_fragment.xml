@@ -7,8 +7,8 @@
 
     <ImageView
         android:id="@+id/tutorial_fragment_image"
-        android:layout_width="300dp"
-        android:layout_height="200dp"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
         android:layout_gravity="center"
         android:padding="20dp" />
 
@@ -16,23 +16,19 @@
         android:id="@+id/tutorial_fragment_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_margin="@dimen/_10sdp"
         android:textColor="#000000"
         android:textIsSelectable="false"
-        android:textSize="15sp"
+        android:textSize="@dimen/_15ssp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tutorial_fragment_details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_margin="@dimen/_10sdp"
         android:textColor="#000000"
         android:textIsSelectable="false"
-        android:textSize="12sp" />
+        android:textSize="@dimen/_12ssp" />
 
 </LinearLayout>

@@ -60,7 +60,9 @@ class ActividadInicial : AppCompatActivity() {
         mBtnLoginGoogle = binding.btnLoginGoogle
         mAuthProvider = AuthProvider()
         mFirebaseFirestore = FirebaseFirestore.getInstance()
+        //indico que la app ya se abrio una vez y no es la primera vez
         SPManager(applicationContext).add(SPManager.INIT, false)
+        SPManager(applicationContext).add(SPManager.TUTORIAL, false)
 
 
         mRemoteConfig = FirebaseRemoteConfig.getInstance()

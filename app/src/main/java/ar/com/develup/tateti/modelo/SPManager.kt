@@ -15,6 +15,7 @@ class SPManager(val context: Context) {
         val USER_PASSWORD = "USER_PASSWORD"
         val USER_PATH_FILE = "USER_PATH_FILE"
         val INIT = "INIT"
+        val TUTORIAL = "TUTORIAL"
     }
 
 

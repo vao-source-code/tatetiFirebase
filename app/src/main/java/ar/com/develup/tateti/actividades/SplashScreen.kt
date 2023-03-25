@@ -11,9 +11,11 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import ar.com.develup.tateti.R
 import ar.com.develup.tateti.actividades.ActividadPartidas
+import ar.com.develup.tateti.actividades.tutorials.StartupTutorialsActivity
 import ar.com.develup.tateti.databinding.ActivitySplashScreenBinding
 import ar.com.develup.tateti.modelo.SPManager
 import ar.com.develup.tateti.modelo.SPManager.Companion.INIT
+import ar.com.develup.tateti.modelo.SPManager.Companion.TUTORIAL
 import com.squareup.okhttp.internal.Version
 
 @SuppressLint("CustomSplashScreen")
@@ -69,6 +71,9 @@ class SplashScreen : AppCompatActivity() {
      * Determina la proxima activity luego del splash
      */
     private fun nextActivity(): Class<*> {
+        if(SPManager(applicationContext).getBoolean(TUTORIAL, true)) {
+            return StartupTutorialsActivity::class.java
+        }
         return if (SPManager(applicationContext).getBoolean(
                 INIT,
                 false
