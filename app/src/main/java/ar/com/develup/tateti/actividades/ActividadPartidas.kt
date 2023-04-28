@@ -5,17 +5,12 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import ar.com.develup.tateti.R
 import ar.com.develup.tateti.adaptadores.AdaptadorPartidas
 import ar.com.develup.tateti.databinding.ActividadPartidasBinding
 import ar.com.develup.tateti.modelo.Constantes
 import ar.com.develup.tateti.modelo.Partida
 import ar.com.develup.tateti.modelo.SPManager
-import com.google.firebase.*
 import com.google.firebase.database.*
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.ktx.*
-
 
 
 class ActividadPartidas : AppCompatActivity() {
@@ -33,6 +28,9 @@ class ActividadPartidas : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActividadPartidasBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
         SPManager(applicationContext).add(SPManager.INIT, true)
 
      adaptadorPartidas = AdaptadorPartidas(this)

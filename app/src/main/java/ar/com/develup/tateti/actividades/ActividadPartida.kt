@@ -62,9 +62,7 @@ class ActividadPartida : AppCompatActivity() {
         referenciaPartida.child("oponente").setValue(jugador)
 
         referenciaPartida.addValueEventListener(partidaCambio)
-        // 1 - Obtener una referencia a Constantes.TABLA_PARTIDAS
-        // 2 - Obtener el child de la partida, a partir de partida.id
-        // 3 - Agregar como valueEventListener el listener partidaCambio definido mas abajo
+
     }
 
     override fun onPause() {

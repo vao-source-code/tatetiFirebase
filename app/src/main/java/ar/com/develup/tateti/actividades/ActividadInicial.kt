@@ -100,7 +100,25 @@ class ActividadInicial : AppCompatActivity() {
     private fun signInGoogle() {
         val signInIntent = googleSignInClient.signInIntent
         startActivityForResult(signInIntent, GOOGLE_SIGN_IN)
+        //cambiar por activityResult.launch(signInIntent)
     }
+
+    //cambiar por private val activityResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    //    if (result.resultCode == Activity.RESULT_OK) {
+    //        val data: Intent? = result.data
+    //        // Handle the Intent
+    //         val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+    //          try {
+        // Google Sign In was successful, authenticate with Firebase
+        //              val account = task.getResult(ApiException::class.java)!!
+        //              Log.d(ContentValues.TAG, "firebaseAuthWithGoogle:" + account.id)
+        //              firebaseAuthWithGoogle(account)
+    //               } catch (e: ApiException) {
+                        // Google Sign In failed, update UI appropriately
+        //              Log.w(ContentValues.TAG, "Google sign in failed", e)
+    //                  }
+    //    }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

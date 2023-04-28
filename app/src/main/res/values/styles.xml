@@ -21,4 +21,10 @@
         <item name="boxBackgroundColor">@android:color/transparent</item>
     </style>
 
+
+    <style name="CustomToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:background">#FF0000</item>
+        <item name="android:titleTextColor">#FFFFFF</item>
+    </style>
+
 </resources>
