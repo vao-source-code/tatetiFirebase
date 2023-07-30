@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "821478192938",
+    "firebase_url": "https://tatetifirebase-4610d-default-rtdb.firebaseio.com",
     "project_id": "tatetifirebase-4610d",
     "storage_bucket": "tatetifirebase-4610d.appspot.com"
   },
@@ -14,11 +15,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "821478192938-j1647gpkohvh9ai76jbflneao2emt4n6.apps.googleusercontent.com",
+          "client_id": "821478192938-5oo87qi1u43a6vff3dgc74s3j3niud26.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "ar.com.develup.tateti",
-            "certificate_hash": "210c1bea735786ce583620440753f7d3b1eb9a07"
+            "certificate_hash": "097370cd5c1c3886d5b3ea7b261e8568c8cec370"
           }
         },
         {

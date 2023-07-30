@@ -20,6 +20,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
 import com.google.firebase.auth.FirebaseAuthInvalidUserException
@@ -59,6 +60,15 @@ class ActividadInicial : AppCompatActivity() {
             .setCancelable(false).build()
 
 
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestIdToken("821478192938-d4mc54h2s4f83dlevca7rt754n63lrvk.apps.googleusercontent.com")
+
+            .requestEmail()
+            .build()
+        googleSignInClient = GoogleSignIn.getClient(this, gso)
+
+
+
         mAuthProvider = AuthProvider()
         mFirebaseFirestore = FirebaseFirestore.getInstance()
 
@@ -82,12 +92,6 @@ class ActividadInicial : AppCompatActivity() {
 
 
     private fun iniciarSesionGoogle() {
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestIdToken("BLkBPbMqEyWGkW1_RI3VbwBE")
-            .requestEmail()
-            .build()
-        googleSignInClient = GoogleSignIn.getClient(this, gso)
-
 
         binding.btnLoginGoogle.setOnClickListener {
             signInGoogle()
@@ -97,7 +101,7 @@ class ActividadInicial : AppCompatActivity() {
 
     private fun signInGoogle() {
         val signInIntent = googleSignInClient.signInIntent
-        //actionGoogleSingApi.launch(signInIntent)
+       // actionGoogleSingApi.launch(signInIntent)
          startActivityForResult(signInIntent, GOOGLE_SIGN_IN)
     }
 
@@ -120,7 +124,7 @@ class ActividadInicial : AppCompatActivity() {
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == GOOGLE_SIGN_IN) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
+            val task :Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             try {
                 // Google Sign In was successful, authenticate with Firebase
                 val account: GoogleSignInAccount = task.getResult(ApiException::class.java)
